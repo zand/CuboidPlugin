@@ -331,6 +331,7 @@ public class CuboidPlugin extends Plugin {
 			player.sendMessage("/cmod <name> create - creates a new cuboidArea");
 			player.sendMessage("/cmod <name> delete - deletes the cuboidArea");
 			player.sendMessage("/cmod <name> move - moves the cuboidArea to selection");
+			player.sendMessage("/cmod <name> rename <newname> - renames the cuboidArea");
 			
 		}
 	}
@@ -633,6 +634,18 @@ public class CuboidPlugin extends Plugin {
 						return true;
 					}
 					CuboidAreas.removeCuboidArea(player, cuboidArea);
+				}
+				else if ( split[2].equalsIgnoreCase("rename") ){
+					if ( !player.canUseCommand("/protect") ){
+						player.sendMessage(Colors.Rose + "You are not allowed to use this command.");
+						return true;
+					}
+					if ( split.length < 4){
+						player.sendMessage( Colors.Rose + "Usage : rename" +
+								"<newname>" );
+						return true;
+					}
+					CuboidAreas.renameCuboidArea(player, cuboidArea, split[3]);
 				}
 				else if ( split[2].equalsIgnoreCase("toggle") ){
 					if ( cuboidArea.isOwner(player) || player.canUseCommand("/protect") || player.canUseCommand("/cuboidAreas") ){
