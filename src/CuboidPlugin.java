@@ -1580,10 +1580,8 @@ public class CuboidPlugin extends Plugin {
 		
 		public boolean onOpenInventory(Player player, Inventory inventory){
 			if ( inventory instanceof Chest || inventory instanceof DoubleChest ){
-				Block chest;
-				if ( inventory instanceof Chest ) chest = ((Chest)inventory).getBlock();
-				else chest = ((DoubleChest)inventory).getBlock();
-                          
+				Block chest = inventory instanceof Chest ?
+						((Chest)inventory).getBlock() : ((DoubleChest)inventory).getBlock();
 				if ( chestProtection && !player.canUseCommand("/ignoresOwnership") ){
 					CuboidC cuboid = CuboidAreas.findCuboidArea(chest.getX(), chest.getY(), chest.getZ());
 					if ( cuboid != null && cuboid.protection ){
@@ -1596,13 +1594,11 @@ public class CuboidPlugin extends Plugin {
 		}
 		
 		//Seems hmod has not implimented this. May not be needed since we restrict opening chests in the first place. Can't open, can't change since it is a server side inventory. TODO: Test this theory ~\\
-		/*
-		public boolean onChangeInventory(Player player, Inventory inventory){
+		//This would blocks chest access if the player is disallowed after opening the chest but, its never called for it.
+		/*public boolean onChangeInventory(Player player, Inventory inventory){
 			if ( inventory instanceof Chest || inventory instanceof DoubleChest ){
-				Block chest;
-				if ( inventory instanceof Chest ) chest = ((Chest)inventory).getBlock();
-				else chest = ((DoubleChest)inventory).getBlock();
-				
+				Block chest = inventory instanceof Chest ? 
+						((Chest)inventory).getBlock() : ((DoubleChest)inventory).getBlock();
 				if ( chestProtection && !player.canUseCommand("/ignoresOwnership") ){
 					CuboidC cuboid = CuboidAreas.findCuboidArea(chest.getX(), chest.getY(), chest.getZ());
 					if ( cuboid != null && cuboid.protection ){
@@ -1612,8 +1608,7 @@ public class CuboidPlugin extends Plugin {
 				return isGloballyRestricted(player);
 			}
 			return false;
-		}
-		*/
+		}//*/
 		
 		public boolean onDamage(PluginLoader.DamageType type, BaseEntity attacker, BaseEntity defender, int amount) {
 			if ( type == PluginLoader.DamageType.ENTITY && defender.isPlayer()  ){
