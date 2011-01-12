@@ -1,3 +1,4 @@
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -175,6 +176,7 @@ public class CuboidC implements Serializable{
 		}
 		String list = "";
 		for ( String playerName : this.allowedPlayers){
+			list += playerName.startsWith("o:") ? Colors.Blue: playerName.startsWith("g:") ? Colors.Green: Colors.White;
 			list += " " + playerName;
 		}
 		player.sendMessage(Colors.Yellow + "Allowed players :" + Colors.White + list);
